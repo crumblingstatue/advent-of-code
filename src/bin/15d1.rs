@@ -27,27 +27,19 @@ fn part2(input: &str) -> i32 {
     panic!("Never reached basement level");
 }
 
-#[test]
-fn test_part1() {
-    assert_eq!(part1("(())"), 0);
-    assert_eq!(part1("()()"), 0);
-    assert_eq!(part1("((("), 3);
-    assert_eq!(part1("(()(()("), 3);
-    assert_eq!(part1("))((((("), 3);
-    assert_eq!(part1("())"), -1);
-    assert_eq!(part1("))("), -1);
-    assert_eq!(part1(")))"), -3);
-    assert_eq!(part1(")())())"), -3);
-}
-
-#[test]
-fn test_part2() {
-    assert_eq!(part2(")"), 1);
-    assert_eq!(part2("()())"), 5);
-}
-
-fn main() {
-    const INPUT: &str = include_str!("15d1.txt");
-    println!("Part 1: {}", part1(INPUT));
-    println!("Part 2: {}", part2(INPUT));
+aoc::main!(1 = part1, 2 = part2);
+aoc::tests! {
+    test1 for part1 requires:
+        "(())" = 0
+        "()()" = 0
+        "(((" = 3
+        "(()(()(" = 3
+        "))(((((" = 3
+        "())" = -1
+        "))(" = -1
+        ")))" = -3
+        ")())())" = -3
+    test2 for part2 requires:
+        ")" = 1
+        "()())" = 5
 }

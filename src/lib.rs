@@ -2,9 +2,8 @@
 macro_rules! main {
     ($($partnum:literal = $partfun:ident$(,)?)*) => {
         fn main() {
-            const INPUT: &str = include_str!(concat!(module_path!(), ".txt"));
             $(
-                println!("Part {}: {}", $partnum, $partfun(INPUT));
+                println!("Part {}: {}", $partnum, $partfun(include_str!(concat!(module_path!(), ".txt"))));
             )*
         }
     }

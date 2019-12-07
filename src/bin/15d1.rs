@@ -1,13 +1,17 @@
 const STARTING_FLOOR: i32 = 0;
 
+fn step(floor: &mut i32, instr: char) {
+    match instr {
+        '(' => *floor += 1,
+        ')' => *floor -= 1,
+        _ => panic!("Invalid instruction: {}", instr),
+    }
+}
+
 fn part1(input: &str) -> i32 {
     let mut floor = STARTING_FLOOR;
     for ch in input.chars() {
-        match ch {
-            '(' => floor += 1,
-            ')' => floor -= 1,
-            _ => panic!("Invalid instruction: {}", ch),
-        }
+        step(&mut floor, ch);
     }
     floor
 }
@@ -15,11 +19,7 @@ fn part1(input: &str) -> i32 {
 fn part2(input: &str) -> i32 {
     let mut floor = STARTING_FLOOR;
     for (i, ch) in input.chars().enumerate() {
-        match ch {
-            '(' => floor += 1,
-            ')' => floor -= 1,
-            _ => panic!("Invalid instruction: {}", ch),
-        }
+        step(&mut floor, ch);
         if floor == -1 {
             return i as i32 + 1;
         }

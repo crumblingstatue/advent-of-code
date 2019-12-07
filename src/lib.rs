@@ -11,7 +11,7 @@ macro_rules! main {
 
 #[macro_export]
 macro_rules! tests {
-    ($($testfun:ident for $partfun:ident requires:
+    ($($testfun:ident for $partfun:ident:
         $(
         $input:literal = $expected_result:literal
         )*

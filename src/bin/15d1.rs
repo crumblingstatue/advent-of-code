@@ -29,7 +29,7 @@ fn part2(input: &str) -> i32 {
 
 aoc::main!(1 = part1, 2 = part2);
 aoc::tests! {
-    test1 for part1 requires:
+    test1 for part1:
         "(())" = 0
         "()()" = 0
         "(((" = 3
@@ -40,7 +40,7 @@ aoc::tests! {
         ")))" = -3
         ")())())" = -3
         [280]
-    test2 for part2 requires:
+    test2 for part2:
         ")" = 1
         "()())" = 5
         [1797]

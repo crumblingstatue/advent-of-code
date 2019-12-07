@@ -16,6 +16,7 @@ macro_rules! tests {
         $(
         $input:literal = $expected_result:literal
         )*
+        $([$input_result:literal])?
     )*) => {
         $(
             #[test]
@@ -24,6 +25,10 @@ macro_rules! tests {
                     eprintln!("Testing {}", stringify!($input = $expected_result));
                     assert_eq!($partfun($input), $expected_result);
                 )*
+                $(
+                    eprintln!("Testing answer for input");
+                    assert_eq!($partfun(include_str!(concat!(module_path!(), ".txt"))), $input_result);
+                )?
             }
         )*
     }

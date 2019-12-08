@@ -3,8 +3,7 @@ fn part1(input: &str) -> i32 {
     loop {
         let hash_input = format!("{}{}", input, num);
         let digest = md5::compute(hash_input.as_bytes());
-        let digest_hex = format!("{:x}", digest);
-        if digest_hex.starts_with("00000") {
+        if digest[0] == 0 && digest[1] == 0 && digest[2] < 16 {
             return num;
         }
         num += 1;
@@ -16,8 +15,7 @@ fn part2(input: &str) -> i32 {
     loop {
         let hash_input = format!("{}{}", input, num);
         let digest = md5::compute(hash_input.as_bytes());
-        let digest_hex = format!("{:x}", digest);
-        if digest_hex.starts_with("000000") {
+        if digest[0] == 0 && digest[1] == 0 && digest[2] == 0 {
             return num;
         }
         num += 1;

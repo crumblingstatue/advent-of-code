@@ -8,3 +8,6 @@ edition = "2018"
 
 [lib]
 name = "aoc"
+
+[dependencies]
+md5 = "0.7.0"

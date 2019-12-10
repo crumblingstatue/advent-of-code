@@ -1,3 +1,5 @@
+pub mod array_2d;
+
 #[macro_export]
 macro_rules! main {
     ($($partnum:literal = $partfun:ident$(,)?)*) => {

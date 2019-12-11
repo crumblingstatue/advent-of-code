@@ -3,7 +3,7 @@ use std::collections::HashMap;
 fn part1(input: &str) -> u16 {
     let circ = assemble_circuit(input, None);
     match circ["a"] {
-        WireOutput::Known(what) | WireOutput::Override(what) => what,
+        WireOutput::Known(what) => what,
         WireOutput::Unknown => unreachable!(),
     }
 }
@@ -12,7 +12,6 @@ fn part1(input: &str) -> u16 {
 enum WireOutput {
     Known(u16),
     Unknown,
-    Override(u16),
 }
 
 type Wires<'a> = HashMap<&'a str, WireOutput>;
@@ -145,11 +144,11 @@ fn get_val(src: Expr, wires: &Wires) -> WireOutput {
     match src {
         Expr::BinOp(BinOp { lhs, rhs, op }) => {
             let lhs = match unary_value(lhs, &wires) {
-                WireOutput::Known(val) | WireOutput::Override(val) => val,
+                WireOutput::Known(val) => val,
                 WireOutput::Unknown => return WireOutput::Unknown,
             };
             let rhs = match unary_value(rhs, &wires) {
-                WireOutput::Known(val) | WireOutput::Override(val) => val,
+                WireOutput::Known(val) => val,
                 WireOutput::Unknown => return WireOutput::Unknown,
             };
             let result = match op {
@@ -163,7 +162,7 @@ fn get_val(src: Expr, wires: &Wires) -> WireOutput {
         }
         Expr::Not(what) => {
             let what = match unary_value(what, &wires) {
-                WireOutput::Known(val) | WireOutput::Override(val) => val,
+                WireOutput::Known(val) => val,
                 WireOutput::Unknown => return WireOutput::Unknown,
             };
             WireOutput::Known(!what)
@@ -198,9 +197,9 @@ fn assemble_circuit<'a>(
 
 fn part2(input: &str) -> u16 {
     let signal = part1(input);
-    let circ = assemble_circuit(input, Some(("b".into(), WireOutput::Override(signal))));
+    let circ = assemble_circuit(input, Some(("b".into(), WireOutput::Known(signal))));
     match circ["a"] {
-        WireOutput::Known(v) | WireOutput::Override(v) => v,
+        WireOutput::Known(v) => v,
         WireOutput::Unknown => unreachable!(),
     }
 }

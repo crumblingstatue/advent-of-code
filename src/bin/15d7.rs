@@ -15,19 +15,19 @@ enum WireOutput {
     Override(u16),
 }
 
-type Wires = HashMap<String, WireOutput>;
-type WireId = String;
+type Wires<'a> = HashMap<&'a str, WireOutput>;
+type WireId<'a> = &'a str;
 
 #[derive(Debug)]
-enum UnaryExpr {
+enum UnaryExpr<'a> {
     Num(u16),
-    Wire(WireId),
+    Wire(WireId<'a>),
 }
 
 #[derive(Debug)]
-struct BinOp {
-    lhs: UnaryExpr,
-    rhs: UnaryExpr,
+struct BinOp<'a> {
+    lhs: UnaryExpr<'a>,
+    rhs: UnaryExpr<'a>,
     op: Op,
 }
 #[derive(Debug)]
@@ -40,21 +40,21 @@ enum Op {
 }
 
 #[derive(Debug)]
-enum Expr {
-    Unary(UnaryExpr),
-    BinOp(BinOp),
-    Not(UnaryExpr),
+enum Expr<'a> {
+    Unary(UnaryExpr<'a>),
+    BinOp(BinOp<'a>),
+    Not(UnaryExpr<'a>),
 }
 
 #[derive(Debug)]
-struct Instruction {
-    src: Expr,
-    dest: WireId,
+struct Instruction<'a> {
+    src: Expr<'a>,
+    dest: WireId<'a>,
 }
 
 #[derive(Debug)]
-enum Token {
-    Unary(UnaryExpr),
+enum Token<'a> {
+    Unary(UnaryExpr<'a>),
     Op(Op),
     /// The -> thingy
     Terminator,
@@ -69,7 +69,7 @@ fn parse_single_token(word: &str) -> Token {
     } else if first_char.is_uppercase() {
         Token::Op(parse_op(word))
     } else {
-        Token::Unary(UnaryExpr::Wire(word.to_owned()))
+        Token::Unary(UnaryExpr::Wire(word))
     }
 }
 
@@ -84,7 +84,7 @@ fn parse_op(opname: &str) -> Op {
     }
 }
 
-fn parse_expr<'a>(words: &mut impl Iterator<Item = &'a str>) -> Expr {
+fn parse_expr<'a>(words: &mut impl Iterator<Item = &'a str>) -> Expr<'a> {
     let fst = parse_single_token(words.next().unwrap());
     match fst {
         Token::Unary(unary) => {
@@ -130,14 +130,14 @@ fn parse_expr<'a>(words: &mut impl Iterator<Item = &'a str>) -> Expr {
 fn parse_instruction(line: &str) -> Instruction {
     let mut words = line.split_whitespace();
     let src = parse_expr(&mut words);
-    let dest = words.next().unwrap().to_owned();
+    let dest = words.next().unwrap();
     Instruction { src, dest }
 }
 
 fn unary_value(expr: UnaryExpr, wires: &Wires) -> WireOutput {
     match expr {
         UnaryExpr::Num(n) => WireOutput::Known(n),
-        UnaryExpr::Wire(w) => *wires.get(&w).unwrap_or(&WireOutput::Unknown),
+        UnaryExpr::Wire(w) => *wires.get(w).unwrap_or(&WireOutput::Unknown),
     }
 }
 
@@ -172,10 +172,13 @@ fn get_val(src: Expr, wires: &Wires) -> WireOutput {
     }
 }
 
-fn assemble_circuit(input: &str, override_: Option<(WireId, WireOutput)>) -> Wires {
+fn assemble_circuit<'a>(
+    input: &'a str,
+    override_: Option<(WireId<'static>, WireOutput)>,
+) -> Wires<'a> {
     let mut wires: Wires = Wires::default();
     if let Some((k, v)) = &override_ {
-        wires.insert(k.to_owned(), *v);
+        wires.insert(k, *v);
     }
     loop {
         for Instruction { src, dest } in input.lines().map(parse_instruction) {
@@ -185,7 +188,6 @@ fn assemble_circuit(input: &str, override_: Option<(WireId, WireOutput)>) -> Wir
                     continue;
                 }
             }
-            let dest: String = dest;
             wires.insert(dest, val);
         }
         if !wires.values().any(|v| *v == WireOutput::Unknown) {

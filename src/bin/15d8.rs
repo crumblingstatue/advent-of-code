@@ -15,7 +15,7 @@ fn decode(source: &[u8]) -> Vec<u8> {
     let mut buf = Vec::new();
     let mut d1: u8 = 0;
     let mut d2: u8;
-    for &ch in source.into_iter() {
+    for &ch in source.iter() {
         match state {
             Normal => {
                 match ch {

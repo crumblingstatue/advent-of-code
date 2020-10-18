@@ -23,7 +23,7 @@ fn paper_req_present_spec(spec: &str) -> i32 {
 
 fn shortest_distance_around_sides(l: i32, w: i32, h: i32) -> i32 {
     let mut sides = [l, w, h];
-    sides.sort();
+    sides.sort_unstable();
     sides[0] * 2 + sides[1] * 2
 }
 

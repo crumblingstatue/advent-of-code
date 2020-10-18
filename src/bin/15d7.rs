@@ -97,7 +97,7 @@ fn parse_expr<'a>(words: &mut impl Iterator<Item = &'a str>) -> Expr<'a> {
                     match rhs {
                         Token::Unary(right_unary) => Expr::BinOp(BinOp {
                             lhs: unary,
-                            op: op,
+                            op,
                             rhs: right_unary,
                         }),
                         _ => panic!("Invalid right hand side: {:?}", rhs),
@@ -197,7 +197,7 @@ fn assemble_circuit<'a>(
 
 fn part2(input: &str) -> u16 {
     let signal = part1(input);
-    let circ = assemble_circuit(input, Some(("b".into(), WireOutput::Known(signal))));
+    let circ = assemble_circuit(input, Some(("b", WireOutput::Known(signal))));
     match circ["a"] {
         WireOutput::Known(v) => v,
         WireOutput::Unknown => unreachable!(),

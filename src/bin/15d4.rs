@@ -23,12 +23,12 @@ fn part2(input: &str) -> i32 {
 }
 
 aoc::tests! {
-    test1 for part1:
-    "abcdef" = 609043
-    "pqrstuv" = 1048970
-    [117946]
-    test2 for part2:
-    [3938038]
+    fn part1:
+    "abcdef" => 609043
+    "pqrstuv" => 1048970
+    => 117946
+    fn part2:
+    => 3938038
 }
 
 aoc::main!(1 = part1, 2 = part2);

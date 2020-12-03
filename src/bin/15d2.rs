@@ -47,14 +47,14 @@ fn part2(input: &str) -> i32 {
 }
 
 aoc::tests! {
-    test1 for part1:
-    "2x3x4" = 58
-    "1x1x10" = 43
-    [1588178]
-    test2 for part2:
-    "2x3x4" = 34
-    "1x1x10" = 14
-    [3783758]
+    fn part1:
+    "2x3x4" => 58
+    "1x1x10" => 43
+    => 1588178
+    fn part2:
+    "2x3x4" => 34
+    "1x1x10" => 14
+    => 3783758
 }
 
 aoc::main!(1 = part1, 2 = part2);

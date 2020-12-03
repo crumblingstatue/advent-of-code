@@ -224,10 +224,10 @@ NOT y -> i";
 }
 
 aoc::tests! {
-    test1 for part1:
-    [3176]
-    test2 for part2:
-    [14710]
+    fn part1:
+    => 3176
+    fn part2:
+    => 14710
 }
 
 aoc::main!(1 = part1, 2 = part2);

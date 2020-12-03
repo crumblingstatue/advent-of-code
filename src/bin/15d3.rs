@@ -50,16 +50,16 @@ fn part2(input: &str) -> i32 {
 }
 
 aoc::tests! {
-    test1 for part1:
-    ">" = 2
-    "^>v<" = 4
-    "^v^v^v^v^v" = 2
-    [2572]
-    tes2 for part2:
-    "^v" = 3
-    "^>v<" = 3
-    "^v^v^v^v^v" = 11
-    [2631]
+    fn part1:
+    ">" => 2
+    "^>v<" => 4
+    "^v^v^v^v^v" => 2
+    => 2572
+    fn part2:
+    "^v" => 3
+    "^>v<" => 3
+    "^v^v^v^v^v" => 11
+    => 2631
 }
 
 aoc::main!(1 = part1, 2 = part2);

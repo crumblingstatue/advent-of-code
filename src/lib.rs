@@ -13,24 +13,26 @@ macro_rules! main {
 
 #[macro_export]
 macro_rules! tests {
-    ($($testfun:ident for $partfun:ident:
+    ($(fn $partfun:ident:
         $(
-        $input:literal = $expected_result:literal
+        $input:expr => $expected_result:expr
         )*
-        $([$input_result:literal])?
+        $(=> $input_result:literal)?
     )*) => {
         $(
-            #[test]
-            fn $testfun() {
-                $(
-                    eprintln!("Testing {}", stringify!($input = $expected_result));
-                    assert_eq!($partfun($input), $expected_result);
-                )*
-                $(
-                    eprintln!("Testing answer for input");
-                    assert_eq!($partfun(include_str!(concat!(module_path!(), ".txt"))), $input_result);
-                )?
-            }
+            concat_idents::concat_idents!(test_name = test, _, $partfun {
+                #[test]
+                fn test_name() {
+                    $(
+                        eprintln!("Testing {}", stringify!($input = $expected_result));
+                        assert_eq!($partfun($input), $expected_result);
+                    )*
+                    $(
+                        eprintln!("Testing answer for input");
+                        assert_eq!($partfun(include_str!(concat!(module_path!(), ".txt"))), $input_result);
+                    )?
+                }
+            });
         )*
     }
 }

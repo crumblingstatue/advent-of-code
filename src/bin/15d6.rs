@@ -123,10 +123,10 @@ fn part2(input: &str) -> i32 {
 }
 
 aoc::tests! {
-    test1 for part1:
-    [377891]
-    test2 for part2:
-    [14110788]
+    fn part1:
+    => 377891
+    fn part2:
+    => 14110788
 }
 
 aoc::main!(1 = part1, 2 = part2);

@@ -1,16 +1,3 @@
-#[cfg(test)]
-const TEST_MAP: &str = "..##.......
-#...#...#..
-.#....#..#.
-..#.#...#.#
-.#...##..#.
-..#.##.....
-.#.#.#....#
-.#........#
-#.##...#...
-#...##....#
-.#..#...#.#";
-
 struct RightRepMap {
     buf: Vec<u8>,
     width: usize,
@@ -87,6 +74,19 @@ fn repmap_to_string(repmap: &RightRepMap) -> String {
     vec.pop();
     String::from_utf8(vec).unwrap()
 }
+
+#[cfg(test)]
+const TEST_MAP: &str = "..##.......
+#...#...#..
+.#....#..#.
+..#.#...#.#
+.#...##..#.
+..#.##.....
+.#.#.#....#
+.#........#
+#.##...#...
+#...##....#
+.#..#...#.#";
 
 #[test]
 fn test_repmap_from_str() {

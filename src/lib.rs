@@ -2,10 +2,12 @@ pub mod array_2d;
 
 #[macro_export]
 macro_rules! main {
-    ($($partnum:literal = $partfun:ident$(,)?)*) => {
+    ($($partfun:ident$(,)?)*) => {
         fn main() {
+            let mut part = 1;
             $(
-                println!("Part {}: {}", $partnum, $partfun(include_str!(concat!(module_path!(), ".txt"))));
+                println!("Part {}: {}", part, $partfun(include_str!(concat!(module_path!(), ".txt"))));
+                part += 1;
             )*
         }
     }

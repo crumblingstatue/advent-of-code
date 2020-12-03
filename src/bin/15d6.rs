@@ -129,4 +129,4 @@ aoc::tests! {
     => 14110788
 }
 
-aoc::main!(1 = part1, 2 = part2);
+aoc::main!(part1, part2);

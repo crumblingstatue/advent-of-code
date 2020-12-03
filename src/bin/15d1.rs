@@ -27,7 +27,7 @@ fn part2(input: &str) -> i32 {
     panic!("Never reached basement level");
 }
 
-aoc::main!(1 = part1, 2 = part2);
+aoc::main!(part1, part2);
 aoc::tests! {
     fn part1:
         "(())" => 0

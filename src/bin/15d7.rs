@@ -143,11 +143,11 @@ fn unary_value(expr: UnaryExpr, wires: &Wires) -> WireOutput {
 fn get_val(src: Expr, wires: &Wires) -> WireOutput {
     match src {
         Expr::BinOp(BinOp { lhs, rhs, op }) => {
-            let lhs = match unary_value(lhs, &wires) {
+            let lhs = match unary_value(lhs, wires) {
                 WireOutput::Known(val) => val,
                 WireOutput::Unknown => return WireOutput::Unknown,
             };
-            let rhs = match unary_value(rhs, &wires) {
+            let rhs = match unary_value(rhs, wires) {
                 WireOutput::Known(val) => val,
                 WireOutput::Unknown => return WireOutput::Unknown,
             };
@@ -161,13 +161,13 @@ fn get_val(src: Expr, wires: &Wires) -> WireOutput {
             WireOutput::Known(result)
         }
         Expr::Not(what) => {
-            let what = match unary_value(what, &wires) {
+            let what = match unary_value(what, wires) {
                 WireOutput::Known(val) => val,
                 WireOutput::Unknown => return WireOutput::Unknown,
             };
             WireOutput::Known(!what)
         }
-        Expr::Unary(what) => unary_value(what, &wires),
+        Expr::Unary(what) => unary_value(what, wires),
     }
 }
 

@@ -59,7 +59,7 @@ fn part1(input: &str) -> usize {
 fn part2(input: &str) -> usize {
     let rules = parse_rules(input);
     let rule = rules.iter().find(|r| r.color == "shiny gold").unwrap();
-    count_colors(&rule, &rules)
+    count_colors(rule, &rules)
 }
 
 fn count_color(name: &str, rule: &BagRule, rules: &[BagRule]) -> usize {

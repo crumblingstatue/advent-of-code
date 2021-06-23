@@ -50,10 +50,7 @@ fn decode(source: &[u8]) -> Vec<u8> {
 }
 
 fn encode(source: &[u8]) -> Vec<u8> {
-    let mut buf = Vec::new();
-
-    // Firstly lol
-    buf.push(b'"');
+    let mut buf = vec![b'"'];
     for &b in source.iter() {
         if b == b'"' || b == b'\\' {
             buf.push(b'\\');

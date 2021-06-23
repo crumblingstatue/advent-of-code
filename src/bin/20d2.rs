@@ -60,39 +60,30 @@ fn part2(input: &str) -> usize {
 
 #[test]
 fn test_valid2() {
-    assert_eq!(
-        valid2(
-            Policy {
-                min: 1,
-                max: 3,
-                byte: b'a'
-            },
-            "abcde"
-        ),
-        true
-    );
-    assert_eq!(
-        valid2(
-            Policy {
-                min: 1,
-                max: 3,
-                byte: b'b'
-            },
-            "cdefg"
-        ),
-        false
-    );
-    assert_eq!(
-        valid2(
-            Policy {
-                min: 2,
-                max: 9,
-                byte: b'c'
-            },
-            "ccccccccc"
-        ),
-        false
-    );
+    assert!(valid2(
+        Policy {
+            min: 1,
+            max: 3,
+            byte: b'a'
+        },
+        "abcde"
+    ));
+    assert!(!valid2(
+        Policy {
+            min: 1,
+            max: 3,
+            byte: b'b'
+        },
+        "cdefg"
+    ));
+    assert!(!valid2(
+        Policy {
+            min: 2,
+            max: 9,
+            byte: b'c'
+        },
+        "ccccccccc"
+    ));
 }
 
 #[test]

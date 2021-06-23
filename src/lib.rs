@@ -24,6 +24,7 @@ macro_rules! tests {
         $(
             concat_idents::concat_idents!(test_name = test, _, $partfun {
                 #[test]
+                #[allow(clippy::bool_assert_comparison)]
                 fn test_name() {
                     $(
                         eprintln!("Testing {}", stringify!($input = $expected_result));

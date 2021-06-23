@@ -1,5 +1,5 @@
 fn is_az(b: &u8) -> bool {
-    (b'a'..=b'z').contains(&b)
+    (b'a'..=b'z').contains(b)
 }
 
 type Ans = u8;

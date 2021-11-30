@@ -12,7 +12,7 @@ fn paper_req_lwh(l: i32, w: i32, h: i32) -> i32 {
     let side3 = h * l;
 
     let surface_area = 2 * side1 + 2 * side2 + 2 * side3;
-    let extra = *[side1, side2, side3].iter().min().unwrap();
+    let extra = [side1, side2, side3].into_iter().min().unwrap();
     surface_area + extra
 }
 

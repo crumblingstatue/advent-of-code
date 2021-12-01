@@ -11,4 +11,5 @@ name = "aoc"
 
 [dependencies]
 concat-idents = "1.0.0"
+itertools = "0.10.1"
 md5 = "0.7.0"

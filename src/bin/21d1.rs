@@ -50,6 +50,7 @@ aoc::tests!(
         => 1527
     fn part2:
         EXAMPLE => 5
+        => 1575
 );
 
 aoc::main!(part1, part2);

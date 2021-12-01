@@ -18,18 +18,11 @@ fn part1(input: &str) -> i64 {
     increases
 }
 
-fn part2(input: &str) -> i64 {
-    let mut prev = None;
-    let mut increases = 0;
-    for window @ (a, b, c) in measurements(input).tuple_windows() {
-        if let Some((pa, pb, pc)) = prev {
-            if a + b + c > pa + pb + pc {
-                increases += 1;
-            }
-        }
-        prev = Some(window);
-    }
-    increases
+fn part2(input: &str) -> usize {
+    measurements(input)
+        .tuple_windows()
+        .filter(|(a, _, _, d)| d > a)
+        .count()
 }
 
 #[cfg(test)]

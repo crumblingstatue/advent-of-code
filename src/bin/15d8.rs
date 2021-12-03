@@ -86,25 +86,25 @@ fn part2(input: &str) -> usize {
 
 aoc::tests! {
     fn decode:
-    b"\"\"" => b""
-    b"\"abc\"" => b"abc"
-    b"\"aaa\\\"aaa\"" => b"aaa\"aaa"
-    b"\\x27" => b"'"
+    b"\"\"" => b"";
+    b"\"abc\"" => b"abc";
+    b"\"aaa\\\"aaa\"" => b"aaa\"aaa";
+    b"\\x27" => b"'";
     fn part1:
     r#"
     ""
     "abc"
     "aaa\"aaa"
     "\x27"
-    "# => 12
-    => 1350
+    "# => 12;
+    => 1350;
     fn encode:
-    br#""""# => br#""\"\"""#
-    br#""abc""# => br#""\"abc\"""#
-    br#""aaa\"aaa""# => br#""\"aaa\\\"aaa\"""#
-    br#""\x27""# => br#""\"\\x27\"""#
+    br#""""# => br#""\"\"""#;
+    br#""abc""# => br#""\"abc\"""#;
+    br#""aaa\"aaa""# => br#""\"aaa\\\"aaa\"""#;
+    br#""\x27""# => br#""\"\\x27\"""#;
     fn part2:
-    => 2085
+    => 2085;
 }
 
 aoc::main!(part1, part2);

@@ -47,11 +47,11 @@ forward 2";
 
 aoc::tests! {
     fn part1:
-    INPUT => 150
-    => 1762050
+    INPUT => 150;
+    => 1762050;
     fn part2:
-    INPUT => 900
-    => 1855892637
+    INPUT => 900;
+    => 1855892637;
 }
 
 aoc::main!(part1, part2);

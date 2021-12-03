@@ -102,11 +102,11 @@ dotted black bags contain no other bags.";
 
 aoc::tests! {
     fn part1:
-    TEST_RULES => 4
-    => 316
+    TEST_RULES => 4;
+    => 316;
     fn part2:
-    TEST_RULES => 32
-    => 11310
+    TEST_RULES => 32;
+    => 11310;
 }
 
 aoc::main!(part1, part2);

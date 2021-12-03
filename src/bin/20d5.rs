@@ -85,9 +85,9 @@ fn test_resolve_seat() {
 
 aoc::tests! {
     fn part1:
-    => 894
+    => 894;
     fn part2:
-    => 579
+    => 579;
 }
 
 aoc::main!(part1, part2);

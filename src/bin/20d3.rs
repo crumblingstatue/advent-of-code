@@ -98,11 +98,11 @@ fn test_repmap_from_str() {
 
 aoc::tests! {
     fn part1:
-    TEST_MAP => 7
-    => 274
+    TEST_MAP => 7;
+    => 274;
     fn part2:
-    TEST_MAP => 336
-    => 6050183040
+    TEST_MAP => 336;
+    => 6050183040;
 }
 
 aoc::main!(part1, part2);

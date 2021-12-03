@@ -76,22 +76,22 @@ fn part2(input: &str) -> i32 {
 
 aoc::tests! {
     fn nice:
-    "ugknbfddgicrmopn" => true
-    "aaa" => true
-    "jchzalrnumimnmhp" => false
-    "haegwjzuvuyypxyu" => false
-    "dvszwmarrgswjxmb" => false
+    "ugknbfddgicrmopn" => true;
+    "aaa" => true;
+    "jchzalrnumimnmhp" => false;
+    "haegwjzuvuyypxyu" => false;
+    "dvszwmarrgswjxmb" => false;
     fn part1:
-    => 236
+    => 236;
     fn nice2:
-    "qjhvhtzxzqqjkmpb" => true
-    "xxyxx" => true
-    "uurcxstgmygtbstg" => false
-    "ieodomkazucvgmuy" => false
-    "xxx" => false // Teddy :3
-    "yyyy" => true // Teddy 2 :3
+    "qjhvhtzxzqqjkmpb" => true;
+    "xxyxx" => true;
+    "uurcxstgmygtbstg" => false;
+    "ieodomkazucvgmuy" => false;
+    "xxx" => false; // Teddy :3
+    "yyyy" => true; // Teddy 2 :3
     fn part2:
-    => 51
+    => 51;
 }
 
 aoc::main!(part1, part2);

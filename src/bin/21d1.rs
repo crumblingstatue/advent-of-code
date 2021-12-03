@@ -39,11 +39,11 @@ const EXAMPLE: &str = "199
 
 aoc::tests!(
     fn part1:
-        EXAMPLE => 7
-        => 1527
+        EXAMPLE => 7;
+        => 1527;
     fn part2:
-        EXAMPLE => 5
-        => 1575
+        EXAMPLE => 5;
+        => 1575;
 );
 
 aoc::main!(part1, part2);

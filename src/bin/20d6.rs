@@ -75,11 +75,11 @@ b";
 
 aoc::tests! {
     fn part1:
-    TEST_INPUT => 11
-    => 6683
+    TEST_INPUT => 11;
+    => 6683;
     fn part2:
-    TEST_INPUT => 6
-    => 3122
+    TEST_INPUT => 6;
+    => 3122;
 }
 
 aoc::main!(part1, part2);

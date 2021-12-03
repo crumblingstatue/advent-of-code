@@ -24,11 +24,11 @@ fn part2(input: &str) -> i32 {
 
 aoc::tests! {
     fn part1:
-    "abcdef" => 609043
-    "pqrstuv" => 1048970
-    => 117946
+    "abcdef" => 609043;
+    "pqrstuv" => 1048970;
+    => 117946;
     fn part2:
-    => 3938038
+    => 3938038;
 }
 
 aoc::main!(part1, part2);

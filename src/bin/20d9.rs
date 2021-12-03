@@ -94,9 +94,9 @@ fn test_part2_pre5() {
 
 aoc::tests! {
     fn part1:
-    => 27911108
+    => 27911108;
     fn part2:
-    => 4023754
+    => 4023754;
 }
 
 aoc::main!(part1, part2);

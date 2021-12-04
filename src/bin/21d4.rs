@@ -1,3 +1,5 @@
+#![feature(vec_retain_mut)]
+
 use std::{fmt::Debug, num::ParseIntError, str::FromStr};
 
 use aoc::array_2d::Array2D;
@@ -124,6 +126,23 @@ fn part1(input: &str) -> u32 {
     panic!("No winning board")
 }
 
+fn part2(input: &str) -> u32 {
+    let (draw, mut boards) = draw_and_boards(input);
+    let mut winning_sum = 0;
+    for draw_num in draw {
+        boards.retain_mut(|board| {
+            board.mark_num(draw_num);
+            if let Some(_vec) = board.winning_vector() {
+                winning_sum = board.unmarked().sum::<u32>() * draw_num;
+                false
+            } else {
+                true
+            }
+        });
+    }
+    winning_sum
+}
+
 #[cfg(test)]
 const TEST_INPUT: &str = "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 
@@ -150,6 +169,9 @@ aoc::tests!(
     TEST_INPUT => 4512;
     => 45031;
     !=> 11067;
+    fn part2:
+    TEST_INPUT => 1924;
+    => 2568;
 );
 
-aoc::main!(part1);
+aoc::main!(part1, part2);

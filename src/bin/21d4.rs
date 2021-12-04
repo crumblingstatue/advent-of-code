@@ -53,18 +53,14 @@ impl Board {
             }
         }
     }
-    fn winning_vector(&self) -> Option<[u32; 5]> {
-        for row in self.array.rows() {
-            if row.iter().all(|field| field.mark) {
-                return Some([row[0].num, row[1].num, row[2].num, row[3].num, row[4].num]);
-            }
-        }
-        for col in self.array.cols() {
-            if col.iter().all(|field| field.mark) {
-                return Some([col[0].num, col[1].num, col[2].num, col[3].num, col[4].num]);
-            }
-        }
-        None
+    fn winning(&self) -> bool {
+        self.array
+            .rows()
+            .any(|row| row.iter().all(|field| field.mark))
+            || self
+                .array
+                .cols()
+                .any(|col| col.iter().all(|field| field.mark))
     }
     fn unmarked(&self) -> impl Iterator<Item = u32> + '_ {
         self.array
@@ -121,7 +117,7 @@ fn part1(input: &str) -> u32 {
     for draw_num in draw {
         for board in &mut boards {
             board.mark_num(draw_num);
-            if let Some(_vec) = board.winning_vector() {
+            if board.winning() {
                 return board.unmarked().sum::<u32>() * draw_num;
             }
         }
@@ -135,7 +131,7 @@ fn part2(input: &str) -> u32 {
     for draw_num in draw {
         boards.retain_mut(|board| {
             board.mark_num(draw_num);
-            if let Some(_vec) = board.winning_vector() {
+            if board.winning() {
                 winning_sum = board.unmarked().sum::<u32>() * draw_num;
                 false
             } else {

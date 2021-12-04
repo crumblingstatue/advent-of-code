@@ -20,6 +20,7 @@ macro_rules! tests {
         $input:expr => $expected_result:expr;
         )*
         $(=> $input_result:literal;)?
+        $(!=> $input_result2:literal;)?
     )*) => {
         $(
             concat_idents::concat_idents!(test_name = test, _, $partfun {
@@ -33,6 +34,10 @@ macro_rules! tests {
                     $(
                         eprintln!("Testing answer for input");
                         assert_eq!($partfun(include_str!(concat!(module_path!(), ".txt"))), $input_result);
+                    )?
+                    $(
+                        eprintln!("Making sure answer for input is not {}", $input_result2);
+                        assert_ne!($partfun(include_str!(concat!(module_path!(), ".txt"))), $input_result2);
                     )?
                 }
             });

@@ -1,3 +1,5 @@
+use std::cmp::Ordering::{Equal, Greater, Less};
+
 use aoc::array_2d::Array2D;
 
 #[derive(Debug, Clone)]
@@ -8,72 +10,43 @@ struct Line2D {
 
 impl Line2D {
     fn segment_points(&self) -> impl Iterator<Item = Point2D> {
-        let min_x = self.p1.x.min(self.p2.x);
-        let min_y = self.p1.y.min(self.p2.y);
-        let max_x = self.p1.x.max(self.p2.x);
-        let max_y = self.p1.y.max(self.p2.y);
-        zip_repeat(min_x..=max_x, min_y..=max_y).map(|(x, y)| Point2D { x, y })
+        // Example:
+        // 8,0 -> 0,8 would yield:
+        // 8,0
+        // 7,1
+        // 6,2
+        // 5,3
+        // 4,4
+        // 3,5
+        // 2,6
+        // 1,7
+        // 0,8
+
+        let mut points = Vec::new();
+        let mut x = self.p1.x;
+        let mut y = self.p1.y;
+        let mut x_exhaust = false;
+        let mut y_exhaust = false;
+        loop {
+            points.push(Point2D { x, y });
+            match x.cmp(&self.p2.x) {
+                Less => x += 1,
+                Equal => x_exhaust = true,
+                Greater => x -= 1,
+            }
+            match y.cmp(&self.p2.y) {
+                Less => y += 1,
+                Equal => y_exhaust = true,
+                Greater => y -= 1,
+            }
+            if x_exhaust && y_exhaust {
+                break;
+            }
+        }
+        points.into_iter()
     }
     fn aligned(&self) -> bool {
         self.p1.x == self.p2.x || self.p1.y == self.p2.y
-    }
-}
-
-fn zip_repeat<It1: Iterator, It2: Iterator>(
-    iter1: It1,
-    iter2: It2,
-) -> impl Iterator<Item = (It1::Item, It2::Item)>
-where
-    It1::Item: Default + Clone,
-    It2::Item: Default + Clone,
-{
-    struct ZipRepeat<T: Iterator, U: Iterator> {
-        iter1: T,
-        iter2: U,
-        iter1_last: T::Item,
-        iter2_last: U::Item,
-    }
-    impl<T: Iterator, U: Iterator> Iterator for ZipRepeat<T, U>
-    where
-        T::Item: Clone,
-        U::Item: Clone,
-    {
-        type Item = (T::Item, U::Item);
-
-        fn next(&mut self) -> Option<Self::Item> {
-            let (mut exhaust1, mut exhaust2) = (false, false);
-            let it1 = match self.iter1.next() {
-                Some(item) => {
-                    self.iter1_last = item.clone();
-                    item
-                }
-                None => {
-                    exhaust1 = true;
-                    self.iter1_last.clone()
-                }
-            };
-            let it2 = match self.iter2.next() {
-                Some(item) => {
-                    self.iter2_last = item.clone();
-                    item
-                }
-                None => {
-                    exhaust2 = true;
-                    self.iter2_last.clone()
-                }
-            };
-            if exhaust1 && exhaust2 {
-                None
-            } else {
-                Some((it1, it2))
-            }
-        }
-    }
-    ZipRepeat {
-        iter1,
-        iter2,
-        iter1_last: Default::default(),
-        iter2_last: Default::default(),
     }
 }
 
@@ -134,6 +107,13 @@ fn part1(input: &str) -> usize {
         .count()
 }
 
+fn part2(input: &str) -> usize {
+    line_grid(lines(input).iter().cloned())
+        .flat_iter()
+        .filter(|&&cell| cell > 1)
+        .count()
+}
+
 #[cfg(test)]
 const TEST_INPUT: &str = "\
 0,9 -> 5,9
@@ -151,6 +131,9 @@ aoc::tests! {
     fn part1:
     TEST_INPUT => 5;
     => 3990;
+    fn part2:
+    TEST_INPUT => 12;
+    => 21305;
 }
 
-aoc::main!(part1);
+aoc::main!(part1, part2);

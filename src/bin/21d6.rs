@@ -60,6 +60,12 @@ fn part1(input: &str) -> u64 {
     count(&school)
 }
 
+fn part2(input: &str) -> u64 {
+    let mut school = school_str(input);
+    simulate(&mut school, 256);
+    count(&school)
+}
+
 #[cfg(test)]
 const TEST_INPUT: &str = "3,4,3,1,2";
 
@@ -109,6 +115,9 @@ aoc::tests! {
     fn part1:
     TEST_INPUT => 5934;
     => 374994;
+    fn part2:
+    TEST_INPUT => 26984457539;
+    => 1686252324092;
 }
 
-aoc::main!(part1);
+aoc::main!(part1, part2);

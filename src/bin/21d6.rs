@@ -44,9 +44,7 @@ fn sim_cycle(School(school): &mut School) {
         school[0] = 0;
     }
     // while each other number decreases by 1 if it was present at the start of the day.
-    for i in 0..=8 {
-        school[i] = school[i + 1];
-    }
+    school.copy_within(1..=9, 0);
     school[8] += school_8_add;
 }
 

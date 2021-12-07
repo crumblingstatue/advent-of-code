@@ -1,4 +1,6 @@
-fn part1(input: &str) -> i32 {
+use md5::Digest;
+
+fn zerohash(input: &str, zerocheck: impl Fn(&Digest) -> bool) -> i32 {
     let mut num = 0;
     let orig_len = input.len();
     let mut hash_input = input.as_bytes().to_owned();
@@ -6,26 +8,23 @@ fn part1(input: &str) -> i32 {
         let _ = itoa::write(&mut hash_input, num);
         let digest = md5::compute(&hash_input);
         hash_input.truncate(orig_len);
-        if digest[0] == 0 && digest[1] == 0 && digest[2] < 16 {
+        if zerocheck(&digest) {
             return num;
         }
         num += 1;
     }
 }
 
+fn part1(input: &str) -> i32 {
+    zerohash(input, |digest| {
+        digest[0] == 0 && digest[1] == 0 && digest[2] < 16
+    })
+}
+
 fn part2(input: &str) -> i32 {
-    let mut num = 0;
-    let orig_len = input.len();
-    let mut hash_input = input.as_bytes().to_owned();
-    loop {
-        let _ = itoa::write(&mut hash_input, num);
-        let digest = md5::compute(&hash_input);
-        hash_input.truncate(orig_len);
-        if digest[0] == 0 && digest[1] == 0 && digest[2] == 0 {
-            return num;
-        }
-        num += 1;
-    }
+    zerohash(input, |digest| {
+        digest[0] == 0 && digest[1] == 0 && digest[2] == 0
+    })
 }
 
 aoc::tests! {

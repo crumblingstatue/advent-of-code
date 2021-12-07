@@ -8,6 +8,7 @@ version = "0.1.0"
 dependencies = [
  "concat-idents",
  "itertools",
+ "itoa",
  "md5",
 ]
 
@@ -35,6 +36,12 @@ checksum = "69ddb889f9d0d08a67338271fa9b62996bc788c7796a5c18cf057420aaed5eaf"
 dependencies = [
  "either",
 ]
+
+[[package]]
+name = "itoa"
+version = "0.4.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b71991ff56294aa922b450139ee08b3bfc70982c6b2c7562771375cf73542dd4"
 
 [[package]]
 name = "md5"

@@ -166,11 +166,11 @@ const TEST_INPUT: &str = "7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,1
 aoc::tests!(
     fn part1:
     TEST_INPUT => 4512;
-    => 45031;
-    !=> 11067;
+    in => 45031;
+    in !=> 11067;
     fn part2:
     TEST_INPUT => 1924;
-    => 2568;
+    in => 2568;
 );
 
 aoc::main!(part1, part2);

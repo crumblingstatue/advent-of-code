@@ -82,7 +82,7 @@ aoc::tests! {
     "haegwjzuvuyypxyu" => false;
     "dvszwmarrgswjxmb" => false;
     fn part1:
-    => 236;
+    in => 236;
     fn nice2:
     "qjhvhtzxzqqjkmpb" => true;
     "xxyxx" => true;
@@ -91,7 +91,7 @@ aoc::tests! {
     "xxx" => false; // Teddy :3
     "yyyy" => true; // Teddy 2 :3
     fn part2:
-    => 51;
+    in => 51;
 }
 
 aoc::main!(part1, part2);

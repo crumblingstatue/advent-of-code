@@ -97,14 +97,14 @@ aoc::tests! {
     "aaa\"aaa"
     "\x27"
     "# => 12;
-    => 1350;
+    in => 1350;
     fn encode:
     br#""""# => br#""\"\"""#;
     br#""abc""# => br#""\"abc\"""#;
     br#""aaa\"aaa""# => br#""\"aaa\\\"aaa\"""#;
     br#""\x27""# => br#""\"\\x27\"""#;
     fn part2:
-    => 2085;
+    in => 2085;
 }
 
 aoc::main!(part1, part2);

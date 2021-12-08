@@ -73,7 +73,7 @@ fn part1(input: &str) -> usize {
 aoc::tests! {
     fn part1:
     TEST_INPUT => 26;
-    => 543;
+    in => 543;
 }
 
 aoc::main!(part1);

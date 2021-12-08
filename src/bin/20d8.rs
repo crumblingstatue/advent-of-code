@@ -130,7 +130,7 @@ acc +6";
 aoc::tests! {
     fn part1:
     TEST_INSTRS => 5;
-    => 1859;
+    in => 1859;
     fn part2:
     TEST_INSTRS => 8;
 }

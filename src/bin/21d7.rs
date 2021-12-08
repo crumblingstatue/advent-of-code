@@ -62,10 +62,10 @@ const TEST_INPUT: &str = "16,1,2,0,4,2,7,1,2,14";
 aoc::tests! {
     fn part1:
     TEST_INPUT => 37;
-    => 352707;
+    in => 352707;
     fn part2:
     TEST_INPUT => 168;
-    => 95519693;
+    in => 95519693;
 }
 
 aoc::main!(part1, part2);

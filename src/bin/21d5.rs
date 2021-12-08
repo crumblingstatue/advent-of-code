@@ -130,10 +130,10 @@ const TEST_INPUT: &str = "\
 aoc::tests! {
     fn part1:
     TEST_INPUT => 5;
-    => 3990;
+    in => 3990;
     fn part2:
     TEST_INPUT => 12;
-    => 21305;
+    in => 21305;
 }
 
 aoc::main!(part1, part2);

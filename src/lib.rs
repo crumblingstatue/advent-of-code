@@ -19,8 +19,8 @@ macro_rules! tests {
         $(
         $input:expr => $expected_result:expr;
         )*
-        $(=> $input_result:literal;)?
-        $(!=> $input_result2:literal;)?
+        $(in => $input_result:literal;)?
+        $(in !=> $input_result2:literal;)?
     )*) => {
         $(
             concat_idents::concat_idents!(test_name = test, _, $partfun {

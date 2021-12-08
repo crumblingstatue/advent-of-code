@@ -66,9 +66,9 @@ fn test_find_sum_operands_2() {
 aoc::tests! {
     fn part1:
     TEST_INPUT => 514579;
-    => 974304;
+    in => 974304;
     fn part2:
-    => 236430480;
+    in => 236430480;
 }
 
 aoc::main!(part1, part2);

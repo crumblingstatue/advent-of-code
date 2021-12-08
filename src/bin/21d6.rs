@@ -111,10 +111,10 @@ fn cycle_test() {
 aoc::tests! {
     fn part1:
     TEST_INPUT => 5934;
-    => 374994;
+    in => 374994;
     fn part2:
     TEST_INPUT => 26984457539;
-    => 1686252324092;
+    in => 1686252324092;
 }
 
 aoc::main!(part1, part2);

@@ -123,10 +123,10 @@ aoc::tests! {
     &[0,1,0,0,1] => 9;
     fn part1:
     TEST_INPUT => 198;
-    => 2743844;
+    in => 2743844;
     fn part2:
     TEST_INPUT => 230;
-    => 6677951;
+    in => 6677951;
 }
 
 aoc::main!(part1, part2);

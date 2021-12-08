@@ -124,9 +124,9 @@ fn part2(input: &str) -> i32 {
 
 aoc::tests! {
     fn part1:
-    => 377891;
+    in => 377891;
     fn part2:
-    => 14110788;
+    in => 14110788;
 }
 
 aoc::main!(part1, part2);

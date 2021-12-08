@@ -225,9 +225,9 @@ NOT y -> i";
 
 aoc::tests! {
     fn part1:
-    => 3176;
+    in => 3176;
     fn part2:
-    => 14710;
+    in => 14710;
 }
 
 aoc::main!(part1, part2);

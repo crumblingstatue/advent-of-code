@@ -31,9 +31,9 @@ aoc::tests! {
     fn part1:
     "abcdef" => 609043;
     "pqrstuv" => 1048970;
-    => 117946;
+    in => 117946;
     fn part2:
-    => 3938038;
+    in => 3938038;
 }
 
 aoc::main!(part1, part2);

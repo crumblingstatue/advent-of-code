@@ -1,5 +1,3 @@
-#![feature(vec_retain_mut)]
-
 use std::{fmt::Debug, num::ParseIntError, str::FromStr};
 
 use aoc::array_2d::Array2D;

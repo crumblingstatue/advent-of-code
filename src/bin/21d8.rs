@@ -1,26 +1,14 @@
 use itertools::Itertools;
 
-struct Display {
-    digits: [Digit; 4],
-}
-
-struct Digit {
-    segments: [bool; 7],
-}
-
-impl Digit {}
-
 #[derive(Debug)]
 struct SignalNote<'a> {
-    patterns: Vec<&'a str>,
     output: Vec<&'a str>,
 }
 
 impl<'a> SignalNote<'a> {
     fn from_str(input: &'a str) -> Self {
-        let (patterns, output) = input.split_once(" | ").unwrap();
+        let (_patterns, output) = input.split_once(" | ").unwrap();
         Self {
-            patterns: patterns.split(' ').collect(),
             output: output.split(' ').collect(),
         }
     }

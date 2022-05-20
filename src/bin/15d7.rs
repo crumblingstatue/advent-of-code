@@ -63,7 +63,7 @@ fn parse_single_token(word: &str) -> Token {
     let first_char = word.chars().next().unwrap();
     if word == "->" {
         Token::Terminator
-    } else if first_char.is_digit(10) {
+    } else if first_char.is_ascii_digit() {
         Token::Unary(UnaryExpr::Num(word.parse().unwrap()))
     } else if first_char.is_uppercase() {
         Token::Op(parse_op(word))

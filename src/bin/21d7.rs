@@ -1,5 +1,3 @@
-#![feature(int_abs_diff)]
-
 fn crab_pos(input: &str) -> impl Iterator<Item = u32> + '_ {
     input.trim().split(',').map(|tok| tok.parse().unwrap())
 }

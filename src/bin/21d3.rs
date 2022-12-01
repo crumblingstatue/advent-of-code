@@ -100,7 +100,7 @@ fn find_matching(
         });
         i += 1;
     }
-    bin_to_u32(&*binary_numbers[0])
+    bin_to_u32(&binary_numbers[0])
 }
 
 #[cfg(test)]

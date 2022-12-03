@@ -1,4 +1,4 @@
-#![feature(array_chunks)]
+#![feature(iter_array_chunks)]
 
 use std::collections::{HashMap, HashSet};
 
@@ -36,9 +36,8 @@ fn part1(input: &str) -> u32 {
 
 type Group<'a> = [&'a [u8]; 3];
 
-fn groups(input: &str, mut f: impl FnMut(&Group)) {
-    let vec: Vec<_> = input.lines().map(|l| l.as_bytes()).collect();
-    for chunk in vec.array_chunks() {
+fn groups(input: &str, mut f: impl FnMut(Group)) {
+    for chunk in input.lines().map(|l| l.as_bytes()).array_chunks() {
         f(chunk)
     }
 }

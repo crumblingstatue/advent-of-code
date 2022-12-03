@@ -36,28 +36,26 @@ fn part1(input: &str) -> u32 {
 
 type Group<'a> = [&'a [u8]; 3];
 
-fn groups(input: &str, mut f: impl FnMut(Group)) {
-    for chunk in input.lines().map(|l| l.as_bytes()).array_chunks() {
-        f(chunk)
-    }
+fn groups(input: &str) -> impl Iterator<Item = Group> {
+    input.lines().map(|l| l.as_bytes()).array_chunks()
 }
 
 fn part2(input: &str) -> u32 {
-    let mut sum = 0;
-    groups(input, |group| {
-        let mut counts: HashMap<u8, u8> = HashMap::new();
-        for sack in group {
-            let set: HashSet<u8> = sack.iter().cloned().collect();
-            for item in set {
-                *counts.entry(item).or_insert(0) += 1;
+    groups(input)
+        .map(|group| {
+            let mut counts: HashMap<u8, u8> = HashMap::new();
+            for sack in group {
+                let set: HashSet<u8> = sack.iter().cloned().collect();
+                for item in set {
+                    *counts.entry(item).or_insert(0) += 1;
+                }
             }
-        }
-        sum += counts
-            .into_iter()
-            .filter_map(|(k, v)| (v == 3).then(|| priority(k) as u32))
-            .sum::<u32>()
-    });
-    sum
+            counts
+                .into_iter()
+                .filter_map(|(k, v)| (v == 3).then(|| priority(k) as u32))
+                .sum::<u32>()
+        })
+        .sum()
 }
 
 #[cfg(test)]

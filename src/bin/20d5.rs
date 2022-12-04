@@ -21,7 +21,7 @@ fn resolve_seat(command_stream: &[u8]) -> Seat {
             b'B' => row_lower = median(row_lower, row_upper) + 1,
             b'L' => col_upper = median(col_lower, col_upper),
             b'R' => col_lower = median(col_lower, col_upper) + 1,
-            _ => panic!("Invalid command: {}", c),
+            _ => panic!("Invalid command: {c}"),
         }
     }
     assert_eq!(row_lower, row_upper);

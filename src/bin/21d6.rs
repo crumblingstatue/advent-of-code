@@ -100,7 +100,7 @@ fn cycle_test() {
         if i == 0 {
             eprint!("Initial state: ");
         } else {
-            eprint!("After {} days: ", i);
+            eprint!("After {i} days: ");
         }
         assert_eq!(test_school, School::from_fishes_iter(day.iter().cloned()));
         test_school.do_sim_cycle();

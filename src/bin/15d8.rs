@@ -32,7 +32,7 @@ fn decode(source: &[u8]) -> Vec<u8> {
                 b'x' => {
                     state = Hex1;
                 }
-                _ => panic!("Invalid escape: {}", ch),
+                _ => panic!("Invalid escape: {ch}"),
             },
             Hex1 => {
                 d1 = ch;

@@ -79,7 +79,7 @@ fn parse_op(opname: &str) -> Op {
         "NOT" => Op::Not,
         "LSHIFT" => Op::Lshift,
         "RSHIFT" => Op::Rshift,
-        _ => panic!("Unhandled opname: {}", opname),
+        _ => panic!("Unhandled opname: {opname}"),
     }
 }
 
@@ -100,11 +100,11 @@ fn parse_expr<'a>(words: &mut impl Iterator<Item = &'a str>) -> Expr<'a> {
                             op,
                             rhs: right_unary,
                         }),
-                        _ => panic!("Invalid right hand side: {:?}", rhs),
+                        _ => panic!("Invalid right hand side: {rhs:?}"),
                     }
                 }
                 Token::Unary(expr) => {
-                    panic!("Unexpected unary expression after another one: {:?}", expr)
+                    panic!("Unexpected unary expression after another one: {expr:?}")
                 }
             }
         }

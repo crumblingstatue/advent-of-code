@@ -29,13 +29,13 @@ fn parse_instruction(input: &str) -> Instruction {
                 "off" => {
                     kind = Off;
                 }
-                etc => panic!("Unexpected: {}", etc),
+                etc => panic!("Unexpected: {etc}"),
             }
         }
         "toggle" => {
             kind = Toggle;
         }
-        etc => panic!("Unexpected: {}", etc),
+        etc => panic!("Unexpected: {etc}"),
     }
     let mut pair1 = words.next().unwrap().split(',');
     let x1 = pair1.next().unwrap().parse().unwrap();

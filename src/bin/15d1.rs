@@ -4,7 +4,7 @@ fn step(floor: &mut i32, instr: char) {
     match instr {
         '(' => *floor += 1,
         ')' => *floor -= 1,
-        _ => panic!("Invalid instruction: {}", instr),
+        _ => panic!("Invalid instruction: {instr}"),
     }
 }
 

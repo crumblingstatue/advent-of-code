@@ -109,8 +109,8 @@ fn add_initial_bottom_row(cargo: &mut Cargo, line: &str, crate_column_offsets: &
     }
 }
 
-fn part1(input: &str) -> String {
-    let cargo = parse_and_exec_cargo_input::<false>(input);
+fn solve<const OVER_9000: bool>(input: &str) -> String {
+    let cargo = parse_and_exec_cargo_input::<OVER_9000>(input);
     cargo
         .stacks
         .into_iter()
@@ -118,13 +118,12 @@ fn part1(input: &str) -> String {
         .collect()
 }
 
+fn part1(input: &str) -> String {
+    solve::<false>(input)
+}
+
 fn part2(input: &str) -> String {
-    let cargo = parse_and_exec_cargo_input::<true>(input);
-    cargo
-        .stacks
-        .into_iter()
-        .map(|stack| stack.last().copied().unwrap() as char)
-        .collect()
+    solve::<true>(input)
 }
 
 #[cfg(test)]

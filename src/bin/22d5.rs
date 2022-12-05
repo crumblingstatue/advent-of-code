@@ -144,6 +144,7 @@ fn part1:
     in => "LBLVVTVLP";
 fn part2:
     TEST_INPUT => "MCD";
+    in => "TPFFBDRJD";
 }
 
 aoc::main!(part1, part2);

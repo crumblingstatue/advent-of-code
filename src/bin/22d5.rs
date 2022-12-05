@@ -27,6 +27,15 @@ impl Cargo {
             dst.push(item);
         }
     }
+    fn move_9001(&mut self, amount: usize, src: usize, dst: usize) {
+        let [src, dst] = self.stacks.get_many_mut([src, dst]).unwrap();
+        let mut buf = Vec::new();
+        for _ in 0..amount {
+            let item = src.pop().unwrap();
+            buf.insert(0, item);
+        }
+        dst.extend_from_slice(&buf);
+    }
 }
 
 #[derive(Default, Debug)]
@@ -55,7 +64,7 @@ fn parse_crate_column_offsets(line: &str) -> Vec<usize> {
         .collect()
 }
 
-fn parse_and_exec_cargo_input(input: &str) -> Cargo {
+fn parse_and_exec_cargo_input<const OVER_9000: bool>(input: &str) -> Cargo {
     let mut cargo = Cargo::default();
     let lines: Vec<&str> = input.lines().collect();
     let line_offsets = line_discovery_pass(&lines);
@@ -65,19 +74,23 @@ fn parse_and_exec_cargo_input(input: &str) -> Cargo {
         add_initial_bottom_row(&mut cargo, l, &crate_column_offsets);
     }
     for l in &lines[line_offsets.first_instruction..] {
-        do_move(l, &mut cargo);
+        do_move::<OVER_9000>(l, &mut cargo);
     }
     cargo
 }
 
-fn do_move(l: &str, cargo: &mut Cargo) {
+fn do_move<const OVER_9000: bool>(l: &str, cargo: &mut Cargo) {
     let [n, src, dst] = l
         .split_whitespace()
         .filter_map(|s| s.parse().ok())
         .array_chunks()
         .next()
         .unwrap();
-    cargo.move_(n, src - 1, dst - 1);
+    if OVER_9000 {
+        cargo.move_9001(n, src - 1, dst - 1);
+    } else {
+        cargo.move_(n, src - 1, dst - 1);
+    }
 }
 
 fn add_initial_bottom_row(cargo: &mut Cargo, line: &str, crate_column_offsets: &[usize]) {
@@ -97,7 +110,16 @@ fn add_initial_bottom_row(cargo: &mut Cargo, line: &str, crate_column_offsets: &
 }
 
 fn part1(input: &str) -> String {
-    let cargo = parse_and_exec_cargo_input(input);
+    let cargo = parse_and_exec_cargo_input::<false>(input);
+    cargo
+        .stacks
+        .into_iter()
+        .map(|stack| stack.last().copied().unwrap() as char)
+        .collect()
+}
+
+fn part2(input: &str) -> String {
+    let cargo = parse_and_exec_cargo_input::<true>(input);
     cargo
         .stacks
         .into_iter()
@@ -120,6 +142,8 @@ aoc::tests! {
 fn part1:
     TEST_INPUT => "CMZ";
     in => "LBLVVTVLP";
+fn part2:
+    TEST_INPUT => "MCD";
 }
 
-aoc::main!(part1);
+aoc::main!(part1, part2);

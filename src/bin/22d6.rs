@@ -1,10 +1,8 @@
 fn sequence_has_n_unique<const N: usize>(seq: &[u8]) -> bool {
-    let mut encountered = [0; N];
     for (i, &ch) in seq.iter().take(N.min(seq.len())).enumerate() {
-        if encountered.contains(&ch) {
+        if seq[..i].contains(&ch) {
             return false;
         }
-        encountered[i] = ch;
     }
     true
 }

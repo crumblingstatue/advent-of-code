@@ -1,12 +1,10 @@
-use std::collections::HashSet;
-
 fn sequence_has_n_unique<const N: usize>(seq: &[u8]) -> bool {
-    let mut encountered = HashSet::new();
-    for &ch in seq.iter().take(N.min(seq.len())) {
+    let mut encountered = [0; N];
+    for (i, &ch) in seq.iter().take(N.min(seq.len())).enumerate() {
         if encountered.contains(&ch) {
             return false;
         }
-        encountered.insert(ch);
+        encountered[i] = ch;
     }
     true
 }

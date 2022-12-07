@@ -219,10 +219,28 @@ fn part1(input: &str) -> u64 {
     sum
 }
 
+fn part2(input: &str) -> u64 {
+    let disk_capacity = 70_000_000;
+    let needed_free = 30_000_000;
+    let mut fs = Fs::from_cmdline_discovery(input.lines().map(CmdLine::from_line));
+    let total_free_now = disk_capacity - fs.root_node.total_size();
+    let mut del_candidates = vec![];
+    fs.root_node.traverse(&mut |node| {
+        let node_total = node.total_size();
+        if node.is_dir() && node_total + total_free_now >= needed_free {
+            del_candidates.push(node_total)
+        }
+    });
+    del_candidates.sort();
+    del_candidates[0]
+}
+
 aoc::tests! {
 fn part1:
     TEST_INPUT => 95437;
     in => 1297159;
+fn part2:
+    TEST_INPUT => 24933642;
 }
 
-aoc::main!(part1);
+aoc::main!(part1, part2);

@@ -241,6 +241,7 @@ fn part1:
     in => 1297159;
 fn part2:
     TEST_INPUT => 24933642;
+    in => 3866390;
 }
 
 aoc::main!(part1, part2);

@@ -17,11 +17,12 @@ impl<T> Array2D<T> {
             buf: vec![fill; width * height],
         }
     }
-    pub fn from_flat(width: usize, height: usize, iter: impl Iterator<Item = T>) -> Self {
+    pub fn from_flat(width: usize, iter: impl Iterator<Item = T>) -> Self {
+        let buf = Vec::from_iter(iter);
         Self {
             width,
-            height,
-            buf: Vec::from_iter(iter),
+            height: buf.len() / width,
+            buf,
         }
     }
     pub fn get_mut(&mut self, x: usize, y: usize) -> &mut T {

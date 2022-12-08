@@ -37,11 +37,7 @@ struct Board {
 impl Board {
     fn from_str(input: &str) -> Self {
         Self {
-            array: Array2D::from_flat(
-                5,
-                5,
-                input.split_whitespace().map(|tok| tok.parse().unwrap()),
-            ),
+            array: Array2D::from_flat(5, input.split_whitespace().map(|tok| tok.parse().unwrap())),
         }
     }
     fn mark_num(&mut self, num: u32) {

@@ -1,7 +1,3 @@
-fn is_az(b: &u8) -> bool {
-    (b'a'..=b'z').contains(b)
-}
-
 type Ans = u8;
 
 //                               Group              Form               Ans
@@ -17,7 +13,7 @@ fn form_iter(input: &'_ str) -> impl Iterator<Item = impl Iterator<Item = Ans> +
 }
 
 fn ans_iter(input: &'_ str) -> impl Iterator<Item = Ans> + '_ {
-    input.bytes().filter(is_az)
+    input.bytes().filter(u8::is_ascii_lowercase)
 }
 
 fn count_unique(iter: impl Iterator<Item = Ans>) -> usize {

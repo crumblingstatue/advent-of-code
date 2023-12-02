@@ -52,7 +52,8 @@ fn part2(input: &str) -> u32 {
             }
             counts
                 .into_iter()
-                .filter_map(|(k, v)| (v == 3).then(|| priority(k) as u32))
+                .filter(|&(_k, v)| (v == 3))
+                .map(|(k, _v)| priority(k) as u32)
                 .sum::<u32>()
         })
         .sum()

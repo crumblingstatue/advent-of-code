@@ -75,7 +75,7 @@ fn validate_hair_color(input: &str) -> bool {
         && bytes[0] == b'#'
         && bytes[1..]
             .iter()
-            .all(|&b| (b'0'..=b'9').contains(&b) || (b'a'..=b'f').contains(&b))
+            .all(|&b| b.is_ascii_digit() || (b'a'..=b'f').contains(&b))
 }
 
 fn validate_eye_color(input: &str) -> bool {

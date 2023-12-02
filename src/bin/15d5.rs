@@ -44,11 +44,7 @@ fn nice2(string: &str) -> bool {
             match last_pair {
                 Some(last_pair) => {
                     // Overlapping, don't consider this a pair?
-                    if last_pair == pair {
-                        consider_pair = false;
-                    } else {
-                        consider_pair = true;
-                    }
+                    consider_pair = last_pair != pair;
                     // Check if there is repeating
                     if last_pair.0 == ch {
                         contains_repeating_letter_one_between = true;

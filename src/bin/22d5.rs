@@ -99,7 +99,6 @@ fn add_initial_bottom_row(cargo: &mut Cargo, line: &str, crate_column_offsets: &
         if i == crate_column_offsets[col] {
             if b != b' ' {
                 cargo.stacks[col].insert(0, b);
-            } else {
             }
             col += 1;
             if col >= crate_column_offsets.len() {

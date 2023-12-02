@@ -30,7 +30,7 @@ struct Game {
     sets: Vec<Set>,
 }
 impl Game {
-    fn possible_with(&self, red: u32, green: u32, blue: u32) -> bool {
+    fn maxes(&self) -> (u32, u32, u32) {
         let mut red_max = 0;
         let mut green_max = 0;
         let mut blue_max = 0;
@@ -44,8 +44,24 @@ impl Game {
                 *c = std::cmp::max(*c, stack.amount);
             }
         }
+        (red_max, green_max, blue_max)
+    }
+    fn possible_with(&self, red: u32, green: u32, blue: u32) -> bool {
+        let (red_max, green_max, blue_max) = self.maxes();
         red >= red_max && green >= green_max && blue >= blue_max
     }
+    fn min_pow(&self) -> u32 {
+        let (rm, gm, bm) = self.maxes();
+        rm * gm * bm
+    }
+}
+
+#[test]
+fn test_min_pow() {
+    assert_eq!(
+        parse_game("Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green").min_pow(),
+        48
+    );
 }
 
 fn parse_game(line: &str) -> Game {
@@ -127,7 +143,11 @@ fn part1(input: &str) -> u32 {
         .sum()
 }
 
-aoc::main!(part1);
+fn part2(input: &str) -> u32 {
+    input.lines().map(|line| parse_game(line).min_pow()).sum()
+}
+
+aoc::main!(part1, part2);
 
 #[cfg(test)]
 const TEST_INPUT: &str = "\
@@ -141,4 +161,6 @@ aoc::tests! {
 fn part1:
     TEST_INPUT => 8;
     in => 2795;
+fn part2:
+    TEST_INPUT => 2286;
 }

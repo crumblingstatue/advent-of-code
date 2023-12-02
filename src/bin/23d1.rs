@@ -98,6 +98,7 @@ fn part1:
     in => 52974;
 fn part2:
     TEST_INPUT_2 => 281;
+    in => 53340;
 }
 
 aoc::main!(part1, part2);

@@ -163,4 +163,5 @@ fn part1:
     in => 2795;
 fn part2:
     TEST_INPUT => 2286;
+    in => 75561;
 }

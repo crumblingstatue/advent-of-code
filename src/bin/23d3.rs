@@ -91,6 +91,22 @@ impl SchematicAnalysis {
                 .any(|part| part.adjacent_to_linespan(num.y, num.x, num.x + num.len))
         })
     }
+    fn gear_ratios(&self) -> impl Iterator<Item = u32> + '_ {
+        self.parts.iter().filter_map(|part| {
+            if part.ch != b'*' {
+                return None;
+            }
+            let adj = self.numbers_adjacent_to_pos(part.x, part.y);
+            (adj.len() == 2).then(|| adj[0].value * adj[1].value)
+        })
+    }
+    fn numbers_adjacent_to_pos(&self, x: usize, y: usize) -> Vec<Number> {
+        self.numbers
+            .iter()
+            .filter(|num| num.adjacent_to_pos(x, y))
+            .cloned()
+            .collect()
+    }
 }
 
 struct Part {
@@ -118,12 +134,17 @@ impl std::fmt::Debug for Part {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 struct Number {
     value: u32,
     x: usize,
     y: usize,
     len: usize,
+}
+impl Number {
+    fn adjacent_to_pos(&self, pos_x: usize, pos_y: usize) -> bool {
+        (self.x..self.x + self.len).any(|x| points_adjacent(x, self.y, pos_x, pos_y))
+    }
 }
 
 fn part1(input: &str) -> u32 {
@@ -132,10 +153,18 @@ fn part1(input: &str) -> u32 {
     analysis.part_numbers().map(|pn| pn.value).sum()
 }
 
+fn part2(input: &str) -> u32 {
+    let arr = Array2D::from_ascii_lines(input.as_bytes());
+    let analysis = SchematicAnalysis::from_array(&arr);
+    analysis.gear_ratios().sum()
+}
+
 aoc::tests! {
 fn part1:
     TEST_INPUT => 4361;
     in => 525119;
+fn part2:
+    TEST_INPUT => 467835;
 }
 
-aoc::main!(part1);
+aoc::main!(part1, part2);

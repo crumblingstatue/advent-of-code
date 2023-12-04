@@ -1,9 +1,37 @@
-use std::fmt::Debug;
+use std::{fmt::Debug, io::Write};
 
 pub struct Array2D<T> {
     buf: Vec<T>,
     width: usize,
     height: usize,
+}
+
+impl Array2D<u8> {
+    pub fn from_ascii_lines(text: &[u8]) -> Self {
+        let mut height = 0;
+        let mut width = 0;
+        let mut buf = Vec::new();
+        for line in text.split(|c| *c == b'\n') {
+            if line.is_empty() {
+                // If we encounter an empty line, we consider it a terminating empty line
+                break;
+            }
+            buf.extend_from_slice(line);
+            height += 1;
+            width = line.len();
+        }
+        Self { buf, width, height }
+    }
+    pub fn ascii_dump(&self) {
+        let mut writer = std::io::stderr().lock();
+        for y in 0..self.height {
+            for x in 0..self.width {
+                let byte = self.get(x, y);
+                writer.write_all(&[*byte]).unwrap();
+            }
+            writer.write_all(b"\n").unwrap();
+        }
+    }
 }
 
 impl<T> Array2D<T> {

@@ -7,7 +7,7 @@ Card 4: 41 92 73 84 69 | 59 84 76 51 58  5 54 83
 Card 5: 87 83 26 28 32 | 88 30 70 12 93 22 82 36
 Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11";
 
-aoc::main!(part1);
+aoc::main!(part1, part2);
 
 #[derive(Debug)]
 struct Card {
@@ -55,8 +55,32 @@ fn part1(input: &str) -> u32 {
         .sum()
 }
 
+fn part2(input: &str) -> usize {
+    let card_table: Vec<u32> = input
+        .lines()
+        .map(|line| Card::from_str(line).number_of_matches())
+        .collect();
+    // Pile of "cards", which are represented by indices into the card table
+    let mut pile: Vec<usize> = (0..card_table.len()).collect();
+    let mut used_idx = 0;
+    while used_idx != pile.len() {
+        let card_idx = pile[used_idx];
+        let n_matching = card_table[card_idx];
+        if n_matching > 0 {
+            for i in card_idx + 1..=card_idx + n_matching as usize {
+                pile.push(i);
+            }
+        }
+        used_idx += 1;
+    }
+    pile.len()
+}
+
 aoc::tests! {
 fn part1:
     TEST_INPUT => 13;
     in => 25174;
+fn part2:
+    TEST_INPUT => 30;
+    in => 6420979;
 }

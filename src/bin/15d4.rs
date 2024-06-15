@@ -4,8 +4,10 @@ fn zerohash(input: &str, zerocheck: impl Fn(&Digest) -> bool) -> i32 {
     let mut num = 0;
     let orig_len = input.len();
     let mut hash_input = input.as_bytes().to_owned();
+    let mut buf = itoa::Buffer::new();
     loop {
-        let _ = itoa::write(&mut hash_input, num);
+        let num_str = buf.format(num);
+        hash_input.extend_from_slice(num_str.as_bytes());
         let digest = md5::compute(&hash_input);
         hash_input.truncate(orig_len);
         if zerocheck(&digest) {

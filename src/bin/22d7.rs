@@ -84,7 +84,7 @@ impl<'a> Fs<'a> {
         }
         fs
     }
-    fn resolve<'root>(&'root mut self, path: &[&'a str]) -> &mut FsNode<'a> {
+    fn resolve(&mut self, path: &[&'a str]) -> &mut FsNode<'a> {
         let mut node = &mut self.root_node;
         for segment in path {
             node = node.get_child(segment);

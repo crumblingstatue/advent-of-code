@@ -33,7 +33,7 @@ struct Fs<'a> {
     root_node: FsNode<'a>,
 }
 
-impl<'a> Default for Fs<'a> {
+impl Default for Fs<'_> {
     fn default() -> Self {
         Self {
             root_node: FsNode::new_dir("/"),

@@ -39,10 +39,21 @@ fn part1(input: &str) -> u32 {
         .sum()
 }
 
+fn part2(input: &str) -> u32 {
+    let [l_list, r_list] = get_lists(input);
+    l_list
+        .into_iter()
+        .map(|l| r_list.iter().filter(|&&r| l == r).count() as u32 * l)
+        .sum()
+}
+
 aoc::tests! {
 fn part1:
     TEST_INPUT => 11;
     in => 2164381;
+fn part2:
+    TEST_INPUT => 31;
+    in => 20719933;
 }
 
-aoc::main!(part1);
+aoc::main!(part1, part2);

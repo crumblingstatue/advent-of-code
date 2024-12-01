@@ -19,12 +19,17 @@ fn numpairs(input: &str) -> impl Iterator<Item = [u32; 2]> {
     })
 }
 
-fn part1(input: &str) -> u32 {
+fn get_lists(input: &str) -> [Vec<u32>; 2] {
     let [mut l_list, mut r_list] = [Vec::new(), Vec::new()];
     for [l, r] in numpairs(input) {
         l_list.push(l);
         r_list.push(r);
     }
+    [l_list, r_list]
+}
+
+fn part1(input: &str) -> u32 {
+    let [mut l_list, mut r_list] = get_lists(input);
     l_list.sort();
     r_list.sort();
     l_list

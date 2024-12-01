@@ -88,14 +88,11 @@ fn test_valid2() {
 
 #[test]
 fn test_parse_policy() {
-    assert_eq!(
-        parse_policy("1-3 a"),
-        Policy {
-            min: 1,
-            max: 3,
-            byte: b'a'
-        }
-    );
+    assert_eq!(parse_policy("1-3 a"), Policy {
+        min: 1,
+        max: 3,
+        byte: b'a'
+    });
 }
 
 aoc::tests! {

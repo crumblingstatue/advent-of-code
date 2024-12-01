@@ -71,27 +71,18 @@ fn test_board_from_str() {
      6  10  3 18  5
      1  12 20 15 19";
     let board = Board::from_str(nums);
-    assert_eq!(
-        board.array.get(0, 0),
-        &Markable {
-            num: 22,
-            mark: false
-        }
-    );
-    assert_eq!(
-        board.array.get(1, 1),
-        &Markable {
-            num: 2,
-            mark: false
-        }
-    );
-    assert_eq!(
-        board.array.get(4, 4),
-        &Markable {
-            num: 19,
-            mark: false
-        }
-    );
+    assert_eq!(board.array.get(0, 0), &Markable {
+        num: 22,
+        mark: false
+    });
+    assert_eq!(board.array.get(1, 1), &Markable {
+        num: 2,
+        mark: false
+    });
+    assert_eq!(board.array.get(4, 4), &Markable {
+        num: 19,
+        mark: false
+    });
 }
 
 fn draw_and_boards(input: &str) -> (Vec<u32>, Vec<Board>) {

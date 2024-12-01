@@ -74,13 +74,10 @@ fn test_resolve_seat() {
     assert_eq!(resolve_seat(b"FBFBBFFRLR"), Seat { row: 44, column: 5 });
     assert_eq!(resolve_seat(b"BFFFBBFRRR"), Seat { row: 70, column: 7 });
     assert_eq!(resolve_seat(b"FFFBBBFRRR"), Seat { row: 14, column: 7 });
-    assert_eq!(
-        resolve_seat(b"BBFFBBFRLL"),
-        Seat {
-            row: 102,
-            column: 4
-        }
-    );
+    assert_eq!(resolve_seat(b"BBFFBBFRLL"), Seat {
+        row: 102,
+        column: 4
+    });
 }
 
 aoc::tests! {

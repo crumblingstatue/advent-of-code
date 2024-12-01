@@ -20,14 +20,18 @@ fn numpairs(input: &str) -> impl Iterator<Item = [u32; 2]> {
 }
 
 fn part1(input: &str) -> u32 {
-    let [mut fst, mut snd] = [Vec::new(), Vec::new()];
-    for [n1, n2] in numpairs(input) {
-        fst.push(n1);
-        snd.push(n2);
+    let [mut l_list, mut r_list] = [Vec::new(), Vec::new()];
+    for [l, r] in numpairs(input) {
+        l_list.push(l);
+        r_list.push(r);
     }
-    fst.sort();
-    snd.sort();
-    fst.into_iter().zip(snd).map(|(a, b)| a.abs_diff(b)).sum()
+    l_list.sort();
+    r_list.sort();
+    l_list
+        .into_iter()
+        .zip(r_list)
+        .map(|(a, b)| a.abs_diff(b))
+        .sum()
 }
 
 aoc::tests! {

@@ -58,7 +58,14 @@ impl Report {
                     if idx + 1 < self.0.len() {
                         let mut clone = self.clone();
                         clone.0.remove(idx + 1);
-                        clone.is_safe()
+                        if clone.is_safe() {
+                            true
+                        } else {
+                            // Maybe previous level can also be problematic?
+                            let mut clone = self.clone();
+                            clone.0.remove(idx.saturating_sub(1));
+                            clone.is_safe()
+                        }
                     } else {
                         false
                     }
@@ -112,6 +119,7 @@ fn part1:
     in => 502;
 fn part2:
     TEST_INPUT => 4;
+    in => 544;
 }
 
 aoc::main!(part1, part2);

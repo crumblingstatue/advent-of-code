@@ -11,6 +11,7 @@ const TEST_INPUT: &str = "\
 8 6 4 4 1
 1 3 6 7 9";
 
+#[derive(Clone)]
 struct Report(Vec<u32>);
 
 #[derive(PartialEq)]
@@ -20,27 +21,40 @@ enum Order {
 }
 
 impl Report {
-    fn is_safe(&self) -> bool {
+    fn first_violation(&self) -> Option<usize> {
         let mut established_order = None;
-        for &[a, b] in self.0.array_windows() {
+        for (idx, &[a, b]) in self.0.array_windows().enumerate() {
             if !(1..=3).contains(&a.abs_diff(b)) {
-                return false;
+                return Some(idx);
             }
             match a.cmp(&b) {
                 Ordering::Less => {
                     if *established_order.get_or_insert(Order::Inc) != Order::Inc {
-                        return false;
+                        return Some(idx);
                     }
                 }
-                Ordering::Equal => return false,
+                Ordering::Equal => return Some(idx),
                 Ordering::Greater => {
                     if *established_order.get_or_insert(Order::Dec) != Order::Dec {
-                        return false;
+                        return Some(idx);
                     }
                 }
             }
         }
-        true
+        None
+    }
+    fn is_safe(&self) -> bool {
+        self.first_violation().is_none()
+    }
+    fn is_safe_dampened(&self) -> bool {
+        match self.first_violation() {
+            Some(idx) => {
+                let mut clone = self.clone();
+                clone.0.remove(idx);
+                clone.is_safe()
+            }
+            None => true,
+        }
     }
 }
 
@@ -48,6 +62,10 @@ impl Report {
 fn test_report_is_safe() {
     assert!(Report(vec![7, 6, 4, 2, 1]).is_safe());
     assert!(!Report(vec![1, 2, 7, 8, 9]).is_safe());
+    assert_eq!(Report(vec![1, 3, 2, 4, 5]).first_violation(), Some(1));
+    assert_eq!(Report(vec![8, 6, 4, 4, 1]).first_violation(), Some(2));
+    assert!(Report(vec![1, 3, 2, 4, 5]).is_safe_dampened());
+    assert!(Report(vec![8, 6, 4, 4, 1]).is_safe_dampened());
 }
 
 impl FromStr for Report {

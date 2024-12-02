@@ -51,7 +51,18 @@ impl Report {
             Some(idx) => {
                 let mut clone = self.clone();
                 clone.0.remove(idx);
-                clone.is_safe()
+                if clone.is_safe() {
+                    true
+                } else {
+                    // The next index can also be problematic
+                    if idx + 1 < self.0.len() {
+                        let mut clone = self.clone();
+                        clone.0.remove(idx + 1);
+                        clone.is_safe()
+                    } else {
+                        false
+                    }
+                }
             }
             None => true,
         }
@@ -91,8 +102,8 @@ fn part2(input: &str) -> usize {
 
 #[test]
 fn part2_too_low() {
-    // The answer '527' is too low for part 2
-    assert!(part2(include_str!("24d2.txt")) > 527)
+    // The answer '542' is too low for part 2
+    assert!(part2(include_str!("24d2.txt")) > 542)
 }
 
 aoc::tests! {

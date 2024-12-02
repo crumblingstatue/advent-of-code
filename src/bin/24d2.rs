@@ -85,10 +85,22 @@ fn part1(input: &str) -> usize {
     reports(input).filter(Report::is_safe).count()
 }
 
+fn part2(input: &str) -> usize {
+    reports(input).filter(Report::is_safe_dampened).count()
+}
+
+#[test]
+fn part2_too_low() {
+    // The answer '527' is too low for part 2
+    assert!(part2(include_str!("24d2.txt")) > 527)
+}
+
 aoc::tests! {
 fn part1:
     TEST_INPUT => 2;
     in => 502;
+fn part2:
+    TEST_INPUT => 4;
 }
 
-aoc::main!(part1);
+aoc::main!(part1, part2);
